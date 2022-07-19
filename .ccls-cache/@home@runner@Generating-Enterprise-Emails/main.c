@@ -77,7 +77,7 @@ int main(void) {
           strcat(employee_random_char, "8");
         if(employee_random_num == 9)
           strcat(employee_random_char, "9");
-        strcat(employee_first_last_name, employee_random_char);
+        strcat(employee_first_name, employee_random_char);
         employee_random_char[0] = '\0';
     random_nums_generated++;
     }
