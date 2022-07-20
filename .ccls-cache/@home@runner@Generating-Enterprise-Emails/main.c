@@ -10,6 +10,7 @@
   //Tanner Ellingson -> telli
   //add @
   //add Enterprise Domain
+  //check for duplicates
   //Write to Employee Emails File
   //Close File(s)
 
@@ -19,6 +20,7 @@ int main(void) {
   char employee_first_name[100];
   char employee_first_initial[100];
   char employee_last_name[100];
+  char employee_last_4[100];
   char employee_first_last_name[200];
   char enterprise_domain[100];
   char enterprise_directory_file[100];
@@ -33,29 +35,34 @@ int main(void) {
   scanf("%s", enterprise_domain);
   printf("\n");
   //Get the First Last Name File Name From User
-  printf("What is the file path of your Directory-File?\n");
+  //printf("What is the file path of your Directory-File?\n");
   //scanf("%s", enterprise_directory_file);
-  printf("\n");
+  //printf("\n");
 
   //Open File
   fp = fopen("Student Directory Sample.txt", "r");
   if (fp == NULL)
     printf("ERROR! File not found. (EXIT)");
 
-  //Begin Email Generation
+  //Print Header
+  printf("Enterprise Emails:\n\n");
+  //Begin Email Generation - Scan First Name from File
   while(fscanf(fp,"%s", employee_first_name) != EOF){
+    //Get the First Initial and Convert to Lowercase
     employee_first_initial[0] = tolower(employee_first_name[0]);
+    //Scan Last Name - Convert to Lowercase - Only take first four characters
     fscanf(fp, "%s", employee_last_name);
     employee_last_name[0] = tolower(employee_last_name[0]);
+    memcpy(employee_last_4,&employee_last_name[0], 4);
+    //Clear employee_first_name
     employee_first_name[0] = '\0';
+    //Concate first initial and last name last four
     strcat(employee_first_name, employee_first_initial);
-    strcat(employee_first_name, employee_last_name);
-    employee_last_name[0] = '\0';
-    employee_first_initial[0] = '\0';
+    strcat(employee_first_name, employee_last_4);
 
     //Generate 3 Random Numbers for Uniqueness
     random_nums_generated = 0;
-    while(random_nums_generated<3){
+     while(random_nums_generated<3){
       employee_random_num = rand()%10;
         if(employee_random_num == 0)
           strcat(employee_random_char, "0");
