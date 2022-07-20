@@ -17,6 +17,7 @@
 int main(void) {
   srand(time(NULL));
   FILE *fp;
+  FILE *out;
   char employee_first_name[100];
   char employee_first_initial[100];
   char employee_last_name[100];
@@ -39,10 +40,16 @@ int main(void) {
   //scanf("%s", enterprise_directory_file);
   //printf("\n");
 
-  //Open File
-  fp = fopen("Student Directory Sample.txt", "r");
+  //Open Input File
+  fp = fopen("Directory.txt", "r");
   if (fp == NULL)
-    printf("ERROR! File not found. (EXIT)");
+    printf("ERROR! File not Opened. (EXIT)");
+  
+  //Open Output File
+  out = fopen("Result.txt","w");
+  if (out == NULL)
+    printf("ERROR! File not Opened. (EXIT)");
+  
 
   //Print Header
   printf("Enterprise Emails:\n\n");
@@ -92,11 +99,15 @@ int main(void) {
     //Concate "User Name" with Enterprise Domain Name
     strcat(employee_first_name, "@");
     strcat(employee_first_name, enterprise_domain);
+    //EDIT ME (Check for Duplicates)
+    //EDIT ME (Write Output to File)
+    fprintf(out,"%s\n", employee_first_name);
     printf("%s\n", employee_first_name);
   one_email_generated++;
   }
   //Close File
   fclose(fp);
+  fclose(out);
   
   return 0;
 }
